@@ -11,6 +11,7 @@ const createJob = async (req, res, next) => {
       location,
       duration,
       locationType,
+      skills,
     } = req.body;
     if (
       !companyName ||
@@ -20,7 +21,8 @@ const createJob = async (req, res, next) => {
       !salary ||
       !location ||
       !duration ||
-      !locationType
+      !locationType || 
+      !skills
     ) {
       res.status(400).json({ message: "Bad Request!" });
     }
@@ -34,6 +36,7 @@ const createJob = async (req, res, next) => {
       location,
       duration,
       locationType,
+      skills
     });
 
     await newJob.save();
@@ -115,10 +118,16 @@ const getAllJob = async (req, res, next) => {
   try {
     const title = req.query.title || "";
     const skills = req.query.skills || "";
+    let formattedSkills;
+    if(skills) {
+      formattedSkills = skills.split(",")
+    }
     // const jobList = await Job.find({},{title: 1})
     const jobList = await Job.find(
-      { title: { $regex: title, $options: "i" } },
-      { title: 1, salary: 1, logoUrl: 1, location: 1 }
+      { title: { $regex: title, $options: "i"},
+      skills: { $in: formattedSkills }
+     },
+      { title: 1, salary: 1, logoUrl: 1, location: 1,skills: 1 }
     );
 
     res.status(200).json({

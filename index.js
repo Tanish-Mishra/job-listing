@@ -24,13 +24,19 @@ app.get("/", (req, res) => {
 });
 
 // To get the Cookies
-app.get("/token", (req, res) => {
-//   const data = req.cookies; 
-const data = req.cookies.token;
-  res.status(200).json({
-    message: data,
-  });
-});
+// app.get("/token", (req, res) => {
+// //   const data = req.cookies; 
+// const data = req.cookies.token;
+//   res.status(200).json({
+//     message: data,
+//   });
+// });
+
+app.get('/health',(req,res)=>{
+  res.json({"message":"Server is Healthy and Running!"})
+})
+
+
 
 app.listen(PORT, (error) => {
   if (!error) {
