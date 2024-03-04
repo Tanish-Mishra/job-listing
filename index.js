@@ -19,9 +19,6 @@ app.use("/api/v1/auth",authRoute);
 app.use("/api/v1/jobs",jobRoute)
 app.use(errorHandler)
 
-app.get("/", (req, res) => {
-  res.send(`Server is Up and Running at PORT: ${PORT}`);
-});
 
 // To get the Cookies
 // app.get("/token", (req, res) => {

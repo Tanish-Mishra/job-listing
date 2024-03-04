@@ -58,7 +58,7 @@ const loginUser = async (req, res, next) => {
     res.status(200).json({
       name: name,
       email: email,
-      token: token,
+      // token: token,
     });
   } catch (error) {
     next(error);
