@@ -12,6 +12,10 @@ const createJob = async (req, res, next) => {
       duration,
       locationType,
       skills,
+      aboutCompany,
+      information,
+      aboutJob,
+
     } = req.body;
     if (
       !companyName ||
@@ -22,7 +26,10 @@ const createJob = async (req, res, next) => {
       !location ||
       !duration ||
       !locationType ||
-      !skills
+      !skills ||
+      !aboutCompany ||
+      !information ||
+      !aboutJob
     ) {
       res.status(400).json({ message: "Bad Request!" });
     }
@@ -37,6 +44,9 @@ const createJob = async (req, res, next) => {
       duration,
       locationType,
       skills,
+      aboutCompany,
+      information,
+      aboutJob,
     });
 
     await newJob.save();
@@ -78,6 +88,9 @@ const editJobById = async (req, res, next) => {
       duration,
       locationType,
       skills,
+      aboutCompany,
+      information,
+      aboutJob,
     } = req.body;
     if (
       !companyName ||
@@ -88,7 +101,10 @@ const editJobById = async (req, res, next) => {
       !location ||
       !duration ||
       !locationType ||
-      !skills
+      !skills ||
+      !aboutCompany ||
+      !information || 
+      !aboutJob
     ) {
       res.status(400).json({ message: "Bad Request!" });
     }
@@ -106,6 +122,9 @@ const editJobById = async (req, res, next) => {
           duration,
           locationType,
           skills,
+          aboutCompany,
+          information,
+          aboutJob,
         },
       }
     );

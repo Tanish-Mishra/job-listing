@@ -14,7 +14,10 @@ const HOST = process.env.PORT || "localhost";
 
 app.use(cors());
 app.use(express.json());
-app.use(cookieParser());
+app.use(cookieParser({
+  credentials: true,
+}
+));
 app.use("/api/v1/auth",authRoute);
 app.use("/api/v1/jobs",jobRoute)
 app.use(errorHandler)
@@ -28,7 +31,7 @@ app.use(errorHandler)
 //     message: data,
 //   });
 // });
-
+                                
 app.get('/health',(req,res)=>{
   res.json({"message":"Server is Healthy and Running!"})
 })

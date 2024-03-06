@@ -53,12 +53,14 @@ const loginUser = async (req, res, next) => {
 
     const token = jwt.sign({ userId: userDetail._id }, process.env.SECRET_KEY);
     // To set the cookies
-    res.cookie("token", token, { HttpOnly: true });
-
+    res.cookie("token", token,{
+      withCredentials: true,
+    });
+   
     res.status(200).json({
       name: name,
       email: email,
-      // token: token,
+      token: token,
     });
   } catch (error) {
     next(error);
