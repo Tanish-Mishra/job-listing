@@ -9,7 +9,7 @@ const registerUser = async (req, res, next) => {
         message: "Invalid Fields!",
       });
     }
-
+    
     const existingUser = await User.findOne({ email: email });
     if (existingUser)
       return response
@@ -55,6 +55,7 @@ const loginUser = async (req, res, next) => {
     // To set the cookies
     res.cookie("token", token,{
       withCredentials: true,
+      secure: true,
     });
    
     res.status(200).json({
@@ -62,6 +63,7 @@ const loginUser = async (req, res, next) => {
       email: email,
       token: token,
     });
+    
   } catch (error) {
     next(error);
   }

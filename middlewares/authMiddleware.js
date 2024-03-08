@@ -3,9 +3,10 @@ const User = require("../models/User");
 const verifyToken = async (req, res, next) => {
   try {
     const token = req.header("Authorization").split(" ")
-    console.log("Token: ",token)
+  
     // const token = req.cookies.token;
-    // console.log(tokens)
+    console.log("Token: ",token)
+
     if (!token && token.length < 2) {
       res.status(401).json({
         message: "Unauthroized Access!",
