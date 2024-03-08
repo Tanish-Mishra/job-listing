@@ -48,7 +48,12 @@ const jobSchema = new mongoose.Schema({
    aboutJob: {
       type:String,
       required: true,
+   },
+   companySize: {
+      type:String,
+      required: true,
    }
+
 
 },{timestamps: true})
 

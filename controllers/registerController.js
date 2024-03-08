@@ -55,7 +55,6 @@ const loginUser = async (req, res, next) => {
     // To set the cookies
     res.cookie("token", token,{
       withCredentials: true,
-      secure: true,
     });
    
     res.status(200).json({

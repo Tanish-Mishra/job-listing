@@ -15,6 +15,7 @@ const createJob = async (req, res, next) => {
       aboutCompany,
       information,
       aboutJob,
+      companySize,
 
     } = req.body;
     if (
@@ -29,7 +30,8 @@ const createJob = async (req, res, next) => {
       !skills ||
       !aboutCompany ||
       !information ||
-      !aboutJob
+      !aboutJob || 
+      !companySize
     ) {
       res.status(400).json({ message: "Bad Request!" });
     }
@@ -47,6 +49,7 @@ const createJob = async (req, res, next) => {
       aboutCompany,
       information,
       aboutJob,
+      companySize,
     });
 
     await newJob.save();
@@ -91,6 +94,7 @@ const editJobById = async (req, res, next) => {
       aboutCompany,
       information,
       aboutJob,
+      companySize,
     } = req.body;
     if (
       !companyName ||
@@ -104,7 +108,8 @@ const editJobById = async (req, res, next) => {
       !skills ||
       !aboutCompany ||
       !information || 
-      !aboutJob
+      !aboutJob || 
+      !companySize
     ) {
       res.status(400).json({ message: "Bad Request!" });
     }
@@ -125,6 +130,7 @@ const editJobById = async (req, res, next) => {
           aboutCompany,
           information,
           aboutJob,
+          companySize,
         },
       }
     );
@@ -140,6 +146,7 @@ const getAllJob = async (req, res, next) => {
   try {
     const title = req.query.title || "";
     const skills = req.query.skills || "";
+    const defaultSkills = ["html","css","react","js"]
     let formattedSkills;
     if (skills) {
       formattedSkills = skills.split(",");
@@ -148,9 +155,23 @@ const getAllJob = async (req, res, next) => {
     const jobList = await Job.find(
       {
         title: { $regex: title, $options: "i" },
-        skills: { $in: formattedSkills },
+        skills: { $in: formattedSkills ? formattedSkills : defaultSkills},
       },
-      { title: 1, salary: 1, logoUrl: 1, location: 1, skills: 1 }
+      { companyName : 1,
+        title : 1,
+        description : 1,
+        logoUrl: 1,
+        salary : 1,
+        location : 1,
+        duration : 1,
+        locationType : 1,
+        skills : 1,
+        aboutCompany : 1,
+        information : 1,
+        aboutJob : 1,
+        companySize : 1
+      
+      }
     );
 
     res.status(200).json({
